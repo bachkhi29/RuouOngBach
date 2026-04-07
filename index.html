@@ -2,98 +2,894 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Rượu Ông Bách - Cửa Hàng Rượu Gia Đình Chất Lượng</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rượu Ông Bách – Cửa Hàng Rượu Gia Đình Truyền Thống</title>
+<meta name="description" content="Rượu Ông Bách – Cơ sở nấu rượu thủ công gia đình tại Thới Bình, Cà Mau. Rượu nguyên chất, không hóa chất, giá tốt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+  :root {
+    --gold: #C8963E;
+    --gold-light: #E8C07D;
+    --gold-pale: #F5E8C8;
+    --deep: #1A0E05;
+    --rich: #3D1F0A;
+    --warm: #6B3A1F;
+    --cream: #FAF5EC;
+    --cream2: #F2E8D5;
+    --text: #2C1810;
+    --muted: #7A5C45;
+    --border: rgba(200,150,62,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── STICKY NAV ── */
+  .sticky-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(26,14,5,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(200,150,62,0.3);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 56px;
+  }
+  .sticky-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .sticky-nav { display: flex; gap: 1.5rem; }
+  .sticky-nav a {
+    color: rgba(245,232,200,0.7);
+    text-decoration: none;
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .sticky-nav a:hover { color: var(--gold-light); }
+  .sticky-cta {
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    padding: 8px 18px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .sticky-cta:hover { background: var(--gold-light); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--deep);
+    position: relative;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 80px 2rem 4rem;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 40%, #3D1F0A 0%, #1A0E05 65%, #0D0702 100%);
+  }
+  .hero-ornament {
+    position: absolute;
+    width: 600px; height: 600px;
+    border: 1px solid rgba(200,150,62,0.08);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .hero-ornament::before {
+    content: '';
+    position: absolute; inset: 30px;
+    border: 1px solid rgba(200,150,62,0.05);
+    border-radius: 50%;
+  }
+  .hero-ornament::after {
+    content: '';
+    position: absolute; inset: 70px;
+    border: 1px solid rgba(200,150,62,0.03);
+    border-radius: 50%;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s ease forwards;
+  }
+  .hero-title em { color: var(--gold-light); font-style: italic; }
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+  .hero-sub {
+    font-size: 1.2rem;
+    color: rgba(245,232,200,0.65);
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s ease forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s ease forwards;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: background 0.25s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--gold-light);
+    border: 1px solid rgba(200,150,62,0.5);
+    padding: 13px 32px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 2px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: border-color 0.25s, color 0.25s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold-light); color: var(--cream); }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0; animation: fadeUp 0.8s 1.2s ease forwards;
+    z-index: 1;
+  }
+  .hero-scroll span {
+    font-size: 0.72rem; letter-spacing: 0.2em;
+    color: rgba(200,150,62,0.5); text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 980px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    color: var(--rich);
+    margin-bottom: 1rem;
+  }
+  .section-line {
+    width: 50px; height: 2px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--cream2); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .about-text p strong { color: var(--rich); font-weight: 600; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .stat-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.25s;
+  }
+  .stat-card:hover { transform: translateY(-3px); }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+
+  /* ── PRODUCTS ── */
+  .products { background: var(--cream); }
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+  .product-card {
+    background: var(--deep);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .product-card:hover { transform: translateY(-5px); }
+  .product-card:hover .product-img {
+    filter: brightness(0.9);
+    transform: scale(1.05);
+  }
+  .product-img-wrap { overflow: hidden; height: 280px; }
+  .product-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.75) sepia(0.15);
+    transition: filter 0.4s, transform 0.4s;
+  }
+  .product-body {
+    padding: 1.8rem;
+    border-top: 2px solid var(--gold);
+  }
+  .product-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+  }
+  .product-desc {
+    font-size: 0.98rem;
+    color: rgba(245,232,200,0.62);
+    font-style: italic;
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+  .product-price {
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+  .price-unit { font-size: 0.85rem; color: rgba(245,232,200,0.45); }
+  .product-badge {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--gold);
+    color: var(--deep);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 1px;
+  }
+
+  /* ── GUIDE ── */
+  .guide { background: var(--rich); }
+  .guide .section-label { color: var(--gold-light); }
+  .guide .section-title { color: var(--cream); }
+  .guide-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 0.5rem;
+  }
+  .guide-card {
+    border: 1px solid rgba(200,150,62,0.18);
+    padding: 2rem;
+    transition: border-color 0.25s, background 0.25s;
+  }
+  .guide-card:hover {
+    border-color: rgba(200,150,62,0.55);
+    background: rgba(200,150,62,0.04);
+  }
+  .guide-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: rgba(200,150,62,0.15);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .guide-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold-light);
+    margin-bottom: 0.8rem;
+  }
+  .guide-card p { font-size: 1rem; color: rgba(245,232,200,0.65); line-height: 1.75; }
+  .guide-tag {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    font-style: italic;
+  }
+
+  /* ── COMMITMENT ── */
+  .commitment { background: var(--cream2); }
+  .commit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .commit-item {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-bottom: 2px solid var(--gold-pale);
+    transition: border-color 0.25s;
+  }
+  .commit-item:hover { border-color: var(--gold); }
+  .commit-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    opacity: 0.2;
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .commit-item h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--rich);
+    margin-bottom: 0.5rem;
+  }
+  .commit-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── STORY ── */
+  .story {
+    background: var(--deep);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-watermark {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw;
+    color: rgba(200,150,62,0.028);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: 0.1em;
+  }
+  .story .section-label { color: var(--gold); }
+  .story .section-title { color: var(--cream); }
+  .story .section-line { margin: 0 auto 2rem; }
+  .story-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    color: rgba(245,232,200,0.78);
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.85;
+    position: relative; z-index: 1;
+  }
+  .story-quote::before {
+    content: '\201C';
+    font-size: 5rem;
+    color: var(--gold);
+    opacity: 0.25;
+    display: block;
+    line-height: 0.55;
+    margin-bottom: 1.2rem;
+  }
+  .facts-strip {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(200,150,62,0.12);
+    border-bottom: 1px solid rgba(200,150,62,0.12);
+    position: relative; z-index: 1;
+  }
+  .fact-item {
+    flex: 1;
+    min-width: 180px;
+    padding: 1.5rem 1.2rem;
+    border-right: 1px solid rgba(200,150,62,0.12);
+    text-align: center;
+    transition: background 0.25s;
+  }
+  .fact-item:last-child { border-right: none; }
+  .fact-item:hover { background: rgba(200,150,62,0.05); }
+  .fact-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .fact-text { font-size: 0.88rem; color: rgba(245,232,200,0.5); line-height: 1.55; }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--cream); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 0.5rem;
+  }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--rich);
+    margin-bottom: 1.5rem;
+  }
+  .info-row {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; margin-bottom: 0; }
+  .info-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--gold-pale);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .info-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 3px;
+    display: block;
+  }
+  .info-value { font-size: 1rem; color: var(--rich); line-height: 1.5; }
+  .info-value a { color: var(--rich); text-decoration: none; transition: color 0.2s; }
+  .info-value a:hover { color: var(--gold); }
+  .info-note { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+  .contact-cta {
+    background: var(--deep);
+    padding: 2.8rem 2.5rem;
+    text-align: center;
+    border-top: 3px solid var(--gold);
+  }
+  .contact-cta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .contact-cta p {
+    color: rgba(245,232,200,0.55);
+    font-size: 1rem;
+    margin-bottom: 1.8rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .phone-display {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .phone-display:hover { color: var(--cream); }
+  .hours-chip {
+    display: inline-block;
+    background: rgba(200,150,62,0.1);
+    border: 1px solid rgba(200,150,62,0.22);
+    color: var(--gold-light);
+    font-size: 0.85rem;
+    padding: 8px 22px;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.8rem;
+  }
+  .cta-btn-full {
+    display: block;
+    width: 100%;
+    background: var(--gold);
+    color: var(--deep);
+    border: none;
+    padding: 16px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: background 0.25s;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .cta-btn-full:hover { background: var(--gold-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0C0701;
+    color: rgba(245,232,200,0.3);
+    text-align: center;
+    padding: 2rem 1rem;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(200,150,62,0.08);
+    line-height: 1.8;
+  }
+  footer span { color: rgba(200,150,62,0.55); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .sticky-nav { display: none; }
+    .about-grid,
+    .products-grid,
+    .guide-cards,
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .commit-grid { grid-template-columns: 1fr 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .facts-strip { flex-direction: column; }
+    .fact-item { border-right: none; border-bottom: 1px solid rgba(200,150,62,0.1); }
+    .fact-item:last-child { border-bottom: none; }
+    .hero-ornament { width: 340px; height: 340px; }
+  }
+</style>
+</head>
 <body>
 
-<a href="tel:0332157824" class="call-float">📞 Gọi Đặt Rượu</a>
-
-<header>
-<h1>🍷 Rượu Ông Bách</h1>
-<p>Cửa Hàng Rượu Gia Đình – Truyền Thống – Uy Tín</p>
-</header>
-
-<nav>
-<a href="#gioithieu">Giới Thiệu</a>
-<a href="#sanpham">Sản Phẩm</a>
-<a href="#lienhe">Liên Hệ</a>
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="sticky-bar">
+  <a class="sticky-logo" href="#top">Rượu Ông Bách</a>
+  <div class="sticky-nav">
+    <a href="#gioithieu">Giới Thiệu</a>
+    <a href="#sanpham">Sản Phẩm</a>
+    <a href="#lienhe">Liên Hệ</a>
+  </div>
+  <a href="tel:0332157824" class="sticky-cta">📞 Gọi Đặt Rượu</a>
 </nav>
 
-<section id="gioithieu">
-<h2>Giới Thiệu</h2>
-<p>
-Cửa Hàng Rượu Ông Bách Là Cơ Sở Gia Đình Gìn Giữ Nghề Nấu Rượu Truyền Thống.
-Mỗi Giọt Rượu Được Nấu Bằng Tâm Huyết, Phục Vụ Người Uống Bằng Sự Chân Thành.
-</p>
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-ornament"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Cửa hàng gia đình · Thới Bình, Cà Mau</p>
+    <h1 class="hero-title">Rượu <em>Ông Bách</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">
+      Truyền thống nấu rượu thủ công — mỗi giọt chứa đựng tâm huyết<br>và sự chân thành của người thợ làng.
+    </p>
+    <div class="hero-actions">
+      <a href="#sanpham" class="btn-primary">Xem Sản Phẩm</a>
+      <a href="#lienhe" class="btn-outline">Liên Hệ Đặt Hàng</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Khám phá</span>
+    <div class="scroll-line"></div>
+  </div>
 </section>
 
-<section id="sanpham">
-<h2>Sản Phẩm & Giá Bán</h2>
-
-<div class="product">
-<h3>🥃 Rượu Gốc</h3>
-<img src="Images/Rượu.jpg" width="200">
-<p>Rượu Nguyên Chất, Nấu Thủ Công, Hương Vị Đậm Đà.</p>
-<p><b>Giá:</b> 20.000 VNĐ / 1 Lít</p>
-</div>
-
-<div class="product">
-<h3>🍶 Rượu Pha</h3>
-<img src="Images/RượuGốc.jpg" width="200">
-<p>Rượu Nhẹ Hơn, Dễ Uống, Phù Hợp Uống Giao Lưu.</p>
-<p><b>Giá:</b> 15.000 VNĐ / 1 Lít</p>
-</div>
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="gioithieu">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-label">Về Chúng Tôi</span>
+        <h2 class="section-title">Nghề Nấu Rượu<br>Truyền Thống Gia Đình</h2>
+        <div class="section-line"></div>
+        <p>
+          Rượu Ông Bách là cơ sở <strong>nấu rượu thủ công gia đình</strong> tại Thị Trấn Thới Bình, Cà Mau. Chúng tôi gìn giữ nghề nấu rượu truyền thống với tất cả tâm huyết, qua từng mẻ ủ, từng giọt cất.
+        </p>
+        <p>
+          Rượu được nấu từ <strong>nguyên liệu rõ nguồn gốc</strong> — gạo sạch, nước tốt, men thuần — không pha hóa chất, không chất bảo quản. Đảm bảo đến tay người uống là sản phẩm <strong>an toàn và chất lượng</strong>.
+        </p>
+        <p>
+          Phục vụ khách hàng bằng sự chân thành, bán đúng loại — đúng giá — đúng chất.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Nấu Thủ Công</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">0</span>
+          <span class="stat-label">Hóa Chất Thêm Vào</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Dòng Rượu Đặc Trưng</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">16h</span>
+          <span class="stat-label">Mở Cửa Mỗi Ngày</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section id="lienhe">
-<h2>Liên Hệ Đặt Rượu</h2>
-<p>🏠 Tên Cửa Hàng: Rượu Ông Bách</p>
-<p>📍 Địa Chỉ: Khóm 7, Thị Trấn Thới Bình, Huyện Thới Bình, Tỉnh Cà Mau (Gần Tiệm May Mỹ Ngân)</p>
-<p>📞 SĐT: 0332157824</p>
-<p>🕒 Giờ Mở Cửa: 6h Sáng – 10h Tối</p>
+<!-- ═══ PRODUCTS ═══ -->
+<section class="products" id="sanpham">
+  <div class="container">
+    <span class="section-label">Sản Phẩm</span>
+    <h2 class="section-title">Hai Dòng Rượu Đặc Trưng</h2>
+    <div class="section-line"></div>
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-badge">Bestseller</div>
+        <div class="product-img-wrap">
+          <img class="product-img"
+               src="Images/Rượu.jpg"
+               alt="Rượu Gốc Ông Bách">
+        </div>
+        <div class="product-body">
+          <span class="product-tag">Dòng Cao Cấp</span>
+          <h3 class="product-name">Rượu Gốc</h3>
+          <p class="product-desc">Nguyên chất, nấu thủ công từ gạo hảo hạng. Hương vị đậm đà, nồng nàn — dành cho người sành uống và muốn ngâm thảo dược.</p>
+          <div class="product-price">
+            <span class="price-amount">20.000₫</span>
+            <span class="price-unit">/ lít</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img class="product-img"
+               src="Images/RượuGốc.jpg"
+               alt="Rượu Pha Ông Bách">
+        </div>
+        <div class="product-body">
+          <span class="product-tag">Dòng Phổ Thông</span>
+          <h3 class="product-name">Rượu Pha</h3>
+          <p class="product-desc">Nhẹ hơn, dễ uống, phù hợp giao lưu bạn bè và tiệc gia đình. Vẫn giữ hương vị tự nhiên đặc trưng của rượu thủ công.</p>
+          <div class="product-price">
+            <span class="price-amount">15.000₫</span>
+            <span class="price-unit">/ lít</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Sự Thật Thú Vị Về Rượu</h2>
+<!-- ═══ GUIDE ═══ -->
+<section class="guide">
+  <div class="container">
+    <span class="section-label" style="color:var(--gold-light);">Tư Vấn Chọn Rượu</span>
+    <h2 class="section-title">Nên Chọn Loại Nào?</h2>
+    <div class="section-line"></div>
+    <div class="guide-cards">
 
-<div class="product">🍶 Rượu Xuất Hiện Từ Hơn 7.000 Năm Trước – Là Một Trong Những Thức Uống Lâu Đời Nhất Của Nhân Loại.</div>
-<div class="product">🥃 Uống Rượu Với Lượng Vừa Phải Giúp Thư Giãn, Kích Thích Tiêu Hóa.</div>
-<div class="product">🌿 Rượu Ngâm Thảo Dược Ở Việt Nam Từ Lâu Được Xem Là Bài Thuốc Dân Gian.</div>
-<div class="product">🏺 Rượu Gắn Liền Với Lễ Cúng, Lễ Hội Và Tình Làng Nghĩa Xóm.</div>
-<div class="product">🍂 Hương Vị Rượu Phụ Thuộc Lớn Vào Nguồn Gạo, Nước Và Kỹ Thuật Ủ.</div>
+      <div class="guide-card">
+        <div class="guide-num">01</div>
+        <h3>Rượu Gốc — Đậm &amp; Nồng</h3>
+        <p>Dành cho người đã quen uống rượu, thích cảm giác ấm nồng thực sự. Hương vị nguyên bản, đúng chất thủ công truyền thống. Rất phù hợp để ngâm thảo dược, sâm, mật ong.</p>
+        <p class="guide-tag">→ Dân sành rượu · Nhâm nhi · Ngâm thảo dược</p>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-num">02</div>
+        <h3>Rượu Pha — Nhẹ &amp; Dễ Uống</h3>
+        <p>Phù hợp với người mới bắt đầu uống rượu hoặc những buổi giao lưu, tiệc tùng. Vị nhẹ, không quá nặng, dễ chịu cho cả người ít uống.</p>
+        <p class="guide-tag">→ Người mới uống · Giao lưu · Tiệc gia đình</p>
+      </div>
+
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Nên Chọn Loại Rượu Nào?</h2>
-
-<div class="product"><b>🥃 Rượu Gốc:</b> Dành Cho Người Uống Lâu Năm, Thích Rượu Đậm.</div>
-<div class="product"><b>🍶 Rượu Pha:</b> Dành Cho Người Mới Uống, Uống Giao Lưu, Không Quá Nặng.</div>
+<!-- ═══ COMMITMENT ═══ -->
+<section class="commitment">
+  <div class="container">
+    <span class="section-label">Cam Kết</span>
+    <h2 class="section-title">Chúng Tôi Cam Kết</h2>
+    <div class="section-line"></div>
+    <div class="commit-grid">
+      <div class="commit-item">
+        <div class="commit-num">01</div>
+        <h4>Nguyên Liệu Sạch</h4>
+        <p>Rõ nguồn gốc, nấu thủ công từ khâu ủ men đến cất rượu, không bỏ qua bất kỳ bước nào.</p>
+      </div>
+      <div class="commit-item">
+        <div class="commit-num">02</div>
+        <h4>Không Hóa Chất</h4>
+        <p>Tuyệt đối không pha hóa chất, không sử dụng chất bảo quản hay cồn công nghiệp.</p>
+      </div>
+      <div class="commit-item">
+        <div class="commit-num">03</div>
+        <h4>Đúng Giá – Đúng Chất</h4>
+        <p>Bán đúng loại, đúng giá niêm yết, không gian lận chất lượng hay pha trộn.</p>
+      </div>
+      <div class="commit-item">
+        <div class="commit-num">04</div>
+        <h4>Phục Vụ Chân Thành</h4>
+        <p>Tư vấn tận tâm, hỗ trợ giao hàng khu vực Thới Bình và lân cận.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Câu Chuyện Về Rượu</h2>
-<p>
-Rượu Không Chỉ Là Thức Uống, Mà Là Cách Người Ta Gần Nhau Hơn Qua Mỗi Câu Chuyện.
-Một Chén Mời Khách, Một Chén Kết Tình, Một Chén Giữ Nghĩa.
-</p>
-<p>
-Rượu Ngon Không Nằm Ở Độ Mạnh, Mà Nằm Ở Cảm Giác Dễ Chịu Và Sự An Tâm Khi Uống.
-</p>
+<!-- ═══ STORY ═══ -->
+<section class="story">
+  <div class="story-watermark">RƯỢU</div>
+  <div class="container">
+    <span class="section-label">Triết Lý</span>
+    <h2 class="section-title">Câu Chuyện Của Rượu</h2>
+    <div class="section-line"></div>
+    <blockquote class="story-quote">
+      Rượu không chỉ là thức uống, mà là cách người ta gần nhau hơn qua mỗi câu chuyện. Một chén mời khách, một chén kết tình, một chén giữ nghĩa.
+      <br><br>
+      Rượu ngon không nằm ở độ mạnh, mà nằm ở cảm giác dễ chịu và sự an tâm khi uống.
+    </blockquote>
+    <div class="facts-strip">
+      <div class="fact-item">
+        <div class="fact-icon">🍶</div>
+        <div class="fact-text">Rượu xuất hiện từ hơn 7.000 năm trước — thức uống lâu đời nhất của nhân loại</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-icon">🌿</div>
+        <div class="fact-text">Rượu ngâm thảo dược từ lâu được xem là bài thuốc dân gian quý báu</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-icon">🏺</div>
+        <div class="fact-text">Gắn liền với lễ cúng, lễ hội và tình làng nghĩa xóm người Việt</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-icon">🍂</div>
+        <div class="fact-text">Hương vị phụ thuộc vào nguồn gạo, nước và kỹ thuật ủ độc đáo</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Cam Kết Của Chúng Tôi</h2>
+<!-- ═══ CONTACT ═══ -->
+<section class="contact" id="lienhe">
+  <div class="container">
+    <span class="section-label">Đặt Hàng</span>
+    <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
+    <div class="section-line"></div>
+    <div class="contact-grid">
 
-<div class="product">✔ Nguyên Liệu Rõ Nguồn Gốc – Nấu Thủ Công.</div>
-<div class="product">✔ Không Pha Hóa Chất – Không Chất Bảo Quản.</div>
-<div class="product">✔ Bán Đúng Loại – Đúng Giá – Đúng Chất.</div>
-<div class="product">✔ Phục Vụ Bằng Sự Chân Thành.</div>
+      <div class="contact-info">
+        <h3>Thông Tin Cửa Hàng</h3>
+
+        <div class="info-row">
+          <div class="info-icon">🏠</div>
+          <div>
+            <span class="info-label">Tên cửa hàng</span>
+            <div class="info-value">Rượu Ông Bách</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <span class="info-label">Địa chỉ</span>
+            <div class="info-value">
+              Khóm 7, Thị Trấn Thới Bình,<br>
+              Huyện Thới Bình, Tỉnh Cà Mau
+            </div>
+            <div class="info-note">(Gần Tiệm May Mỹ Ngân)</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">🕒</div>
+          <div>
+            <span class="info-label">Giờ mở cửa</span>
+            <div class="info-value">6:00 sáng – 10:00 tối</div>
+            <div class="info-note">Mở cửa tất cả các ngày trong tuần</div>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-icon">📞</div>
+          <div>
+            <span class="info-label">Điện thoại</span>
+            <div class="info-value">
+              <a href="tel:0332157824">0332 157 824</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contact-cta">
+        <h3>Đặt Rượu Ngay Hôm Nay</h3>
+        <p>Gọi điện trực tiếp để đặt hàng, tư vấn loại rượu phù hợp hoặc hỏi thêm thông tin về sản phẩm.</p>
+        <a href="tel:0332157824" class="phone-display">0332 157 824</a>
+        <div class="hours-chip">Mở cửa 6h – 22h mỗi ngày</div>
+        <a href="tel:0332157824" class="cta-btn-full">📞 Gọi Đặt Rượu Ngay</a>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- ═══ FOOTER ═══ -->
 <footer>
-<p>© 2025 Rượu Ông Bách</p>
+  <p>© 2025 <span>Rượu Ông Bách</span> · Cơ sở nấu rượu thủ công gia đình · Thới Bình, Cà Mau</p>
+  <p>Uống có trách nhiệm &nbsp;·&nbsp; Không bán rượu cho người dưới 18 tuổi</p>
 </footer>
 
 </body>
