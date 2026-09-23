@@ -52,14 +52,21 @@
   }
   .sticky-nav { display: flex; gap: 1.5rem; }
   .sticky-nav a {
+    position: relative;
     color: rgba(245,232,200,0.7);
     text-decoration: none;
     font-size: 0.88rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    transition: color 0.2s;
+    transition: color 0.25s;
   }
   .sticky-nav a:hover { color: var(--gold-light); }
+  .sticky-nav a::after {
+    content: ''; position: absolute; height: 1px; bottom: -7px; left: 0; right: 0;
+    background: var(--gold-light); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .sticky-nav a:hover::after, .sticky-nav a:focus-visible::after { transform: scaleX(1); }
   .sticky-cta {
     background: var(--gold);
     color: var(--deep);
@@ -88,7 +95,9 @@
   }
   .hero-bg {
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 60% at 50% 40%, #3D1F0A 0%, #1A0E05 65%, #0D0702 100%);
+    background:
+      radial-gradient(circle at 50% 45%, rgba(200,150,62,0.12), transparent 32%),
+      radial-gradient(ellipse 70% 60% at 50% 40%, #3D1F0A 0%, #1A0E05 65%, #0D0702 100%);
   }
   .hero-ornament {
     position: absolute;
@@ -98,6 +107,8 @@
     top: 50%; left: 50%;
     transform: translate(-50%,-50%);
     pointer-events: none;
+    box-shadow: 0 0 100px rgba(200,150,62,0.055), inset 0 0 80px rgba(200,150,62,0.035);
+    animation: ornamentBreathe 9s ease-in-out infinite;
   }
   .hero-ornament::before {
     content: '';
@@ -164,10 +175,10 @@
     border-radius: 2px;
     text-decoration: none;
     letter-spacing: 0.05em;
-    transition: background 0.25s, transform 0.15s;
+    transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
     display: inline-block;
   }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(200,150,62,0.24); }
   .btn-outline {
     background: transparent;
     color: var(--gold-light);
@@ -179,10 +190,10 @@
     border-radius: 2px;
     text-decoration: none;
     letter-spacing: 0.05em;
-    transition: border-color 0.25s, color 0.25s;
+    transition: border-color 0.25s, color 0.25s, transform 0.25s;
     display: inline-block;
   }
-  .btn-outline:hover { border-color: var(--gold-light); color: var(--cream); }
+  .btn-outline:hover { border-color: var(--gold-light); color: var(--cream); transform: translateY(-3px); }
   .hero-scroll {
     position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -200,6 +211,10 @@
   }
 
   @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  @keyframes ornamentBreathe {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -227,6 +242,11 @@
     width: 50px; height: 2px;
     background: var(--gold);
     margin-bottom: 2rem;
+    position: relative;
+  }
+  .section-line::after {
+    content: ''; position: absolute; top: -2px; right: -11px; width: 6px; height: 6px;
+    border: 1px solid var(--gold); transform: rotate(45deg);
   }
 
   /* ── ABOUT ── */
@@ -255,9 +275,9 @@
     border-top: 3px solid var(--gold);
     padding: 1.5rem;
     text-align: center;
-    transition: transform 0.25s;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   }
-  .stat-card:hover { transform: translateY(-3px); }
+  .stat-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(61,31,10,0.09); border-color: rgba(200,150,62,0.55); }
   .stat-number {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
@@ -285,14 +305,19 @@
     color: var(--cream);
     position: relative;
     overflow: hidden;
-    transition: transform 0.3s;
+    transition: transform 0.35s, box-shadow 0.35s;
   }
-  .product-card:hover { transform: translateY(-5px); }
+  .product-card:hover { transform: translateY(-7px); box-shadow: 0 18px 36px rgba(61,31,10,0.22); }
   .product-card:hover .product-img {
     filter: brightness(0.9);
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
   .product-img-wrap { overflow: hidden; height: 280px; }
+  .product-img-wrap::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 280px;
+    background: linear-gradient(180deg, transparent 48%, rgba(26,14,5,0.35));
+    pointer-events: none;
+  }
   .product-img {
     width: 100%; height: 100%;
     object-fit: cover;
@@ -359,13 +384,15 @@
     margin-top: 0.5rem;
   }
   .guide-card {
+    position: relative;
     border: 1px solid rgba(200,150,62,0.18);
     padding: 2rem;
-    transition: border-color 0.25s, background 0.25s;
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
   }
   .guide-card:hover {
     border-color: rgba(200,150,62,0.55);
-    background: rgba(200,150,62,0.04);
+    background: rgba(200,150,62,0.08);
+    transform: translateY(-4px);
   }
   .guide-num {
     font-family: 'Playfair Display', serif;
@@ -401,9 +428,9 @@
     text-align: center;
     padding: 2rem 1rem;
     border-bottom: 2px solid var(--gold-pale);
-    transition: border-color 0.25s;
+    transition: border-color 0.25s, transform 0.25s;
   }
-  .commit-item:hover { border-color: var(--gold); }
+  .commit-item:hover { border-color: var(--gold); transform: translateY(-4px); }
   .commit-num {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
@@ -477,7 +504,7 @@
     transition: background 0.25s;
   }
   .fact-item:last-child { border-right: none; }
-  .fact-item:hover { background: rgba(200,150,62,0.05); }
+  .fact-item:hover { background: rgba(200,150,62,0.09); }
   .fact-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
   .fact-text { font-size: 0.88rem; color: rgba(245,232,200,0.5); line-height: 1.55; }
 
@@ -521,6 +548,13 @@
   .info-value { font-size: 1rem; color: var(--rich); line-height: 1.5; }
   .info-value a { color: var(--rich); text-decoration: none; transition: color 0.2s; }
   .info-value a:hover { color: var(--gold); }
+  .map-link {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    margin-top: 0.55rem; color: var(--warm) !important;
+    border-bottom: 1px solid var(--gold); font-weight: 600;
+    transition: color 0.25s, gap 0.25s;
+  }
+  .map-link:hover, .map-link:focus-visible { color: #9B681C !important; gap: 0.7rem; }
   .info-note { font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
   .contact-cta {
@@ -582,6 +616,17 @@
   }
   .cta-btn-full:hover { background: var(--gold-light); }
 
+  /* Motion stays decorative; content remains visible if scripting is unavailable. */
+  .motion-ready .reveal { opacity: 0; transform: translateY(22px); }
+  .motion-ready .reveal.is-visible {
+    opacity: 1; transform: translateY(0);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  a:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 4px;
+  }
+
   /* ── FOOTER ── */
   footer {
     background: #0C0701;
@@ -607,6 +652,11 @@
     .fact-item { border-right: none; border-bottom: 1px solid rgba(200,150,62,0.1); }
     .fact-item:last-child { border-bottom: none; }
     .hero-ornament { width: 340px; height: 340px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    .motion-ready .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
@@ -847,9 +897,9 @@
             <span class="info-label">Địa chỉ</span>
             <div class="info-value">
               Khóm 7, Thị Trấn Thới Bình,<br>
-              Huyện Thới Bình, Tỉnh Cà Mau
+              Huyện Thới Bình, Tỉnh Cà Mau<br>
+              <a class="map-link" href="https://www.google.com/maps/place/R%C6%B0%E1%BB%A3u+%C3%94ng+B%C3%A1ch/@9.3498945,105.0943127,826m/data=!3m2!1e3!4b1!4m6!3m5!1s0x31a133006fbb9cf5:0xcdc10d017a529b94!8m2!3d9.3498945!4d105.0991836!16s%2Fg%2F11msrkqs6d" target="_blank" rel="noopener noreferrer" aria-label="Xem vị trí Rượu Ông Bách trên Google Maps">Xem Rượu Ông Bách trên Google Maps <span aria-hidden="true">↗</span></a>
             </div>
-            <div class="info-note">(Gần Tiệm May Mỹ Ngân)</div>
           </div>
         </div>
 
@@ -892,5 +942,20 @@
   <p>Uống có trách nhiệm &nbsp;·&nbsp; Không bán rượu cho người dưới 18 tuổi</p>
 </footer>
 
+<script>
+  if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = document.querySelectorAll('.section-label, .section-title, .section-line, .stat-card, .product-card, .guide-card, .commit-item, .story-quote, .fact-item, .contact-info, .contact-cta');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -35px 0px' });
+    items.forEach((item) => { item.classList.add('reveal'); observer.observe(item); });
+    document.body.classList.add('motion-ready');
+  }
+</script>
 </body>
 </html>
