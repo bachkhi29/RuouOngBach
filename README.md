@@ -32,4 +32,4 @@ Chúng tôi gìn giữ nghề nấu rượu truyền thống với tất cả t�
 > *Uống có trách nhiệm · Không bán rượu cho người dưới 18 tuổi.*
 
 ---
-*Trang web được thiết kế bởi Lý Đình Bách.*
+
